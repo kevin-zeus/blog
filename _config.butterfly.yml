@@ -127,12 +127,13 @@ cover:
   position: both
   # When cover is not set, the default cover is displayed (當沒有設置cover時，默認的封面顯示)
   default_cover:
-    - https://i.loli.net/2021/03/30/Wras8bY9PqvuOki.jpg
-    - https://i.loli.net/2021/03/30/64mqbBOonXJjQrz.jpg
-    - https://i.loli.net/2021/03/30/dz2YZyweiv7Cqlk.jpg
-    - https://i.loli.net/2021/03/30/OukSJbH9RUcZz8h.jpg
-    - https://i.loli.net/2021/03/30/AGVHqxMXnYSkTWd.jpg
-    - https://i.loli.net/2021/03/30/QhXOIBuZU9rjcvG.jpg
+    - https://blog-1257256187.cos.ap-chengdu.myqcloud.com/img/pexels-brett-sayles-3412325.jpg
+    - https://blog-1257256187.cos.ap-chengdu.myqcloud.com/img%2Fpexels-drift-shutterbug-1753027%20%281%29.jpg
+    - https://blog-1257256187.cos.ap-chengdu.myqcloud.com/img%2Fpexels-francesco-ungaro-2942378.jpg
+    - https://blog-1257256187.cos.ap-chengdu.myqcloud.com/img%2Fpexels-jose-vega-3792538.jpg
+    - https://blog-1257256187.cos.ap-chengdu.myqcloud.com/img%2Fpexels-marek-piwnicki-6068385.jpg
+    - https://blog-1257256187.cos.ap-chengdu.myqcloud.com/img%2Fpexels-rajukhan-pathan-6401271.jpg
+    - https://blog-1257256187.cos.ap-chengdu.myqcloud.com/img%2Fpexels-simon-berger-1323550.jpg
 
 # Replace Broken Images (替換無法顯示的圖片)
 error_img:
