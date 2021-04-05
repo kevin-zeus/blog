@@ -80,18 +80,18 @@ katex:
 # --------------------------------------
 
 # Favicon（網站圖標）
-favicon: /img/favicon.png
+favicon: https://blog-1257256187.cos.ap-chengdu.myqcloud.com/img%2F8AB2089C-3ADC-46EE-8BF0-ED2879ED2A0C.JPG
 
 # Avatar (頭像)
 avatar:
-  img: https://i.loli.net/2021/03/30/xyNHY7iw4XEWIvf.jpg
+  img: https://blog-1257256187.cos.ap-chengdu.myqcloud.com/img%2F8AB2089C-3ADC-46EE-8BF0-ED2879ED2A0C.JPG
   effect: false
 
 # Disable all banner image
 disable_top_img: false
 
 # The banner image of home page
-index_img: https://i.loli.net/2021/03/31/tT3561yJeBNLkE9.jpg
+index_img: https://blog-1257256187.cos.ap-chengdu.myqcloud.com/img/tT3561yJeBNLkE9.jpeg
 
 # If the banner of page not setting, it will show the top_img
 # default_top_img: https://sm.ms/image/rOwexCXPJhBjVu8
