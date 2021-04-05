@@ -1202,7 +1202,14 @@ hexo-renderer-marked@^4.0.0:
     hexo-util "^2.1.0"
     marked "^2.0.0"
 
-hexo-renderer-stylus@^2.0.0:
+hexo-renderer-pug@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.npm.taobao.org/hexo-renderer-pug/download/hexo-renderer-pug-1.0.0.tgz#e23cfa53d308a0985ae8ec2b25a4f8d24c4b4dcc"
+  integrity sha1-4jz6U9MIoJha6OwrJaT40kxLTcw=
+  dependencies:
+    pug "^2.0.1"
+
+hexo-renderer-stylus@^2.0.0, hexo-renderer-stylus@^2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/hexo-renderer-stylus/-/hexo-renderer-stylus-2.0.1.tgz#c65566e97e9058a52e46c82b0c45cf561f4b94cb"
   integrity sha512-1S4AG8RtzWqVrqKIYv2AJ4UYms5SHDjkdYS7IiGwgUejL24agbTktpAbnH2cG1JWZ15SRqYN0UGB9aAoSAgvEA==
@@ -1223,6 +1230,14 @@ hexo-server@^2.0.0:
     morgan "^1.9.1"
     open "^7.0.0"
     serve-static "^1.14.1"
+
+hexo-theme-butterfly@^3.7.1:
+  version "3.7.1"
+  resolved "https://registry.npm.taobao.org/hexo-theme-butterfly/download/hexo-theme-butterfly-3.7.1.tgz#691aa748b075f37062c93cdac462e88759912bce"
+  integrity sha1-aRqnSLB183BiyTzaxGLoh1mRK84=
+  dependencies:
+    hexo-renderer-pug "^1.0.0"
+    hexo-renderer-stylus "^2.0.1"
 
 hexo-theme-landscape@^0.0.3:
   version "0.0.3"
