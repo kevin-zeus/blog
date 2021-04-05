@@ -102,7 +102,4 @@ theme: butterfly
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
-  - type: git
-    repo:
-      github: https://github.com/kevin-zeus/blog.git
-
+  type: ''
