@@ -7,8 +7,6 @@ tags:
 
 # JavaScript事件循环及异步原理
 
-[[TOC]]
-
 理解JavaScript的事件循环和异步原理，是我们理解所编写的JS执行过程的关键。本文引用了网上一些好文，然后借助自己的理解用通俗的表达进行了阐述。
 
 ## 前言
@@ -55,7 +53,7 @@ function a(){
 a();
 ```
 函数的出入栈顺序如下图：
-![image.png](https://blog-1257256187.cos.ap-chengdu.myqcloud.com/img/20200515191736)
+![image.png](https://blog-1257256187.cos.ap-chengdu.myqcloud.com/img/20200515191736?imageMogr2/format/webp)
 
 > 如果对函数调用栈还不是很了解，请参考我的另外一篇文章：[JavaScript语言核心概念](/index.php/archives/3/)
 
@@ -84,31 +82,31 @@ fun();
 
 第一步，`fun()`函数入栈（我们省略了该代码全局执行上下文入栈步骤）
 
-![](https://blog-1257256187.cos.ap-chengdu.myqcloud.com/img/20200515191743)
+![](https://blog-1257256187.cos.ap-chengdu.myqcloud.com/img/20200515191743?imageMogr2/format/webp)
 
 第二步，因为`fun()`函数内执行了`setTimeout()`，所以`setTimeout()`入栈，如图：
 
-![](https://blog-1257256187.cos.ap-chengdu.myqcloud.com/img/20200515191747)
+![](https://blog-1257256187.cos.ap-chengdu.myqcloud.com/img/20200515191747?imageMogr2/format/webp)
 
 第三步，由于`setTimeout()`是异步操作，不属于JavaScript主线程模块内容，所以`setTimeout()`进入异步执行模块执行计时，如图
 
-![](https://blog-1257256187.cos.ap-chengdu.myqcloud.com/img/20200515191753)
+![](https://blog-1257256187.cos.ap-chengdu.myqcloud.com/img/20200515191753?imageMogr2/format/webp)
 
 第四步，`fun()`函数内的`console.log('准备')`函数进入函数调用栈并执行，所以控制台输出`准备`
 
-![](https://blog-1257256187.cos.ap-chengdu.myqcloud.com/img/20200515191756)
+![](https://blog-1257256187.cos.ap-chengdu.myqcloud.com/img/20200515191756?imageMogr2/format/webp)
 
 第五步，由于`fun()`函数内部没有其他需要继续执行的函数，所以`fun()`出栈，随后全局上下文也没有需要执行的代码，所以全局上下文也出栈，如图：
 
-![](https://blog-1257256187.cos.ap-chengdu.myqcloud.com/img/20200515191801)
+![](https://blog-1257256187.cos.ap-chengdu.myqcloud.com/img/20200515191801?imageMogr2/format/webp)
 
 第六步，假如此时刚好`setTimeout()`的两秒计时结束，那么异步模块就会将`setTimeout()`的回调函数放到任务队列里面，因为此时函数调用栈已经空闲，所以任务队列依次将任务函数入栈，如图：
 
-![](https://blog-1257256187.cos.ap-chengdu.myqcloud.com/img/20200515191805)
+![](https://blog-1257256187.cos.ap-chengdu.myqcloud.com/img/20200515191805?imageMogr2/format/webp)
 
 第七步，进入`callback()`回调中，将`console.log('执行回调')`入栈执行，所以在控制台输出`执行回调`，如图：
 
-![](https://blog-1257256187.cos.ap-chengdu.myqcloud.com/img/20200515191808)
+![](https://blog-1257256187.cos.ap-chengdu.myqcloud.com/img/20200515191808?imageMogr2/format/webp)
 
 第八步，`callback()`再出栈，整段代码执行结束。
 
@@ -141,7 +139,7 @@ fun();
 ## 宏任务与微任务
 前言里说到任务由**宏任务**和**微任务**构成，也被称为`task`和`job`，我们看一张网上的事件循环图：
 
-![](https://blog-1257256187.cos.ap-chengdu.myqcloud.com/img/20200515191815)
+![](https://blog-1257256187.cos.ap-chengdu.myqcloud.com/img/20200515191815?imageMogr2/format/webp)
 
 其中，`Task Queue`是指宏任务，`Microtask Queue`则是微任务。
 
@@ -155,7 +153,7 @@ fun();
 
 任务队列的事件循环可以用下图表示：
 
-![](https://blog-1257256187.cos.ap-chengdu.myqcloud.com/img/20200515191820)
+![](https://blog-1257256187.cos.ap-chengdu.myqcloud.com/img/20200515191820?imageMogr2/format/webp)
 
 分析一段代码：
 ```html
@@ -188,27 +186,27 @@ fun();
 开始，程序往下走，遇到setTimeout，是异步任务，放到异步模块执行，执行结束的回调进入宏任务队列先暂存着，如图：
 
 
-![](https://blog-1257256187.cos.ap-chengdu.myqcloud.com/img/20200515191827)
+![](https://blog-1257256187.cos.ap-chengdu.myqcloud.com/img/20200515191827?imageMogr2/format/webp)
 
 继续往下走，碰到Promise对象。由于是new操作，其构造函数是一个匿名函数，所以会立即执行Promise构造函数的实参函数任务，所以`console.log(1)`被执行，控制台输出1，接着进入循环，直到执行`resolve()`，执行完该函数之后，会附带调用`then`方法，因为`then`属于异步方法，所以`then`内部的回调`console.log(5)`被送入微任务队列，接着执行`console.log(2)`，控制台输出2，此时状态如图：
 
-![](https://blog-1257256187.cos.ap-chengdu.myqcloud.com/img/20200515191831)
+![](https://blog-1257256187.cos.ap-chengdu.myqcloud.com/img/20200515191831?imageMogr2/format/webp)
 
 程序往下走，紧接着执行`console.log(3)`，所以控制台输出3。到现在控制台输出顺序为1 2 3。
 
-![](https://blog-1257256187.cos.ap-chengdu.myqcloud.com/img/20200515191835)
+![](https://blog-1257256187.cos.ap-chengdu.myqcloud.com/img/20200515191835?imageMogr2/format/webp)
 
 到这里，第一段脚本里已经结束了，所以此时在这段`<script>`脚本中函数调用栈已空，按照之前的事件循环逻辑，微任务队列里的任务会依次放到函数调用栈里面执行，所以接下来控制台就输出5，如图：
 
-![](https://blog-1257256187.cos.ap-chengdu.myqcloud.com/img/20200515191839)
+![](https://blog-1257256187.cos.ap-chengdu.myqcloud.com/img/20200515191839?imageMogr2/format/webp)
 
 当微任务队列中的所有任务执行完毕（这里只有一个微任务），函数调用栈为空会先看程序是否可以继续，由于下一个`<script>`脚本存在，所以事件循环被打断，继续下一个脚本内容，所以先执行`console.log(6)`，控制台输出6，此时已输出顺序为`1 2 3 5 6`，如图：
 
-![](https://blog-1257256187.cos.ap-chengdu.myqcloud.com/img/20200515191844)
+![](https://blog-1257256187.cos.ap-chengdu.myqcloud.com/img/20200515191844?imageMogr2/format/webp)
 
 接下来，又将碰到一个Promise，Promise内构造函数的回调参数函数会立即执行，内部执行到`resolve()`则会调用其`then()`，由于`then()`是异步方法，所以进入异步执行模块执行之后将`console.log(7)`放入微任务队列，如图：
 
-![](https://blog-1257256187.cos.ap-chengdu.myqcloud.com/img/20200515191850)
+![](https://blog-1257256187.cos.ap-chengdu.myqcloud.com/img/20200515191850?imageMogr2/format/webp)
 
 由于在这个`<script>`脚本里没有其余代码，所以接下来执行所有的微任务，则继续执行`console.log(7)`，随后根据事件循环原理执行下一个宏任务`console.log(4)`，到此所有的代码执行完毕，所以最终的顺序是`1 2 3 5 6 7 4`。
 
