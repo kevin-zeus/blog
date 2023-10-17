@@ -303,8 +303,8 @@ livere:
 # gitalk
 # https://github.com/gitalk/gitalk
 gitalk:
-  client_id: 643c2a62134cabca0856
-  client_secret: 702337c6adac277cc9336e26fc4bf4a284133369
+  client_id: 4e1ef8a7d93ea96c9f72
+  client_secret: c11cc88d2596e46c9521d28fd2b4bc1b656bd70e
   repo: blog
   owner: zengkaiwen
   admin: zengkaiwen
