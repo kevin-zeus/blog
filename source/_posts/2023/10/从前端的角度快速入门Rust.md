@@ -538,7 +538,7 @@ pintln!("s1: {}, s2: {}", s1, s2);
 
 ### 引用与借用
 
-很多语言里面，都有内存地址的引用，比如 js 里面的引用类型，其变量存储的是数据的内存地址，在 Rust 中，所有权像是引用上加了一层职责约束。为了区分，Rust 在引用的基础上出现了**借用**这个概念，在阐述这个之前，来看看 Rust 函数的参数及返回值。
+很多语言里面，都有内存地址的引用，比如 js 里面的引用类型，其变量存储的是数据的内存地址。在 Rust 中，所有权像是引用上加了一层职责约束。为了区分，Rust 在引用的基础上出现了**借用**这个概念，在阐述这个之前，来看看 Rust 函数的参数及返回值。
 
 #### 函数上的 move
 
@@ -574,7 +574,7 @@ fn say_hello(name: String) {
 }
 ```
 
-> 需要注意的是，上面所说的情况，都适用于未实现 `Copy` trait 的类型，例如整数，字符串字面量这些实现了 `Copy` trait 的类型，其是直接拷贝的。
+> 需要注意的是，上面所说的情况，都适用于未实现 `Copy` trait 的类型，例如整数，字符串字面量这些实现了 `Copy` trait 的类型，其是直接拷贝的，而不是转让所有权。
 
 #### 借用
 
@@ -594,10 +594,72 @@ fn say_hello(name: &String) {
 }
 ```
 
-与之前的代码对比，`say_hello` 的参数 `name` 成了 `&String` 类型。**借用**就是指创建引用的行文。Rust 中使用 `&` 来创建对某一个类型的借用，借用没有所有权，只有使用权。如图：
+与之前的代码对比，`say_hello` 的参数 `name` 成了 `&String` 类型。**借用**就是指创建引用的行为。Rust 中使用 `&` 来创建对某一个类型的借用，**借用没有所有权，只有使用权**。如图：
 
 ![](https://blog-1257256187.cos.ap-chengdu.myqcloud.com/blog-imgs/202312191902394.png?imageMogr2/format/webp)
 
+需要注意的是，借用与 C++ 语言你们的指针不同，不能修改被借用的数据，例如：
+
+```rust
+fn main() {
+    let a = String::from("hello");
+    change(&a);
+    println!("{}", a);
+}
+
+fn change(str: &String) {
+    str.push_str(", world"); // 报错，error: cannot borrow `*str` as mutable, as it is behind a `&` reference
+}
+```
+
+上述代码中，在 change 函数里面去修改内容，产生了报错。那如果，就是想通过这种方式，在函数里面去修改传入参数的内容呢，可以通过**可变引用**实现：
+
+```rust
+fn main() {
+    let mut a = String::from("hello"); // 变量声明成可变变量
+    change(&mut a);
+    println!("{}", a); // hello, world
+}
+
+fn change(str: &mut String) { // 传入的参数是可变引用
+    str.push_str(", world");
+}
+```
+
+首先，需要将变量 `a` 声明成 `mut`，然后调用的函数参数也必须是可变引用 `&mut a`，这样就很清晰的表明，`change` 函数会改变它所借用的值。
+
+但是可变引用有个限制：**同一作用域下，只能有一个对某一特定数据的可变引用**，如：
+
+```rust
+let mut s = String::from("hello");
+let r1 = &mut s;
+let r2 = &mut s; // 已经有可变引用了，第二次可变引用会报错
+println!("{}, {}", r1, r2);
+```
+
+还有种情况，**同一个作用于，已经有对某个特定数据的引用下，不能对该数据使用可变引用**，如：
+
+```rust
+let mut s = String::from("hello");
+let r1 = &s; // 没问题
+let r2 = &s; // 没问题
+let r3 = &mut s; // 报错
+println!("{}, {}, and {}", r1, r2, r3);
+```
+
+注意，**一个引用的作用域从声明的地方到最后一次使用为止**，基于此，上面代码可以改成：
+
+```rust
+let mut s = String::from("hello");
+let r1 = &s; // 没问题
+let r2 = &s; // 没问题
+println!("{} and {}", r1, r2);
+// 此位置之后 r1 和 r2 不再使用
+let r3 = &mut s; // 没问题
+println!("{}", r3);
+```
+
+所以，如果出现可变引用的问题，需要注意变量的作用域或引用的作用域问题。
 
 ## 生命周期
 
