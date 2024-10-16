@@ -1,5 +1,5 @@
 ---
-title: 从前端的角度快速入门 Rust
+title: 从前端的角度快速入门 Rust【写作中】
 date: 2023-10-17 11:44:43
 tags:
   - rust
